@@ -3,9 +3,9 @@ import { Pxth } from './Pxth';
 /**
  * Returns relative path. If subPath is not child of basePath, throws error.
  * @example
- * relativePath('hello.world', 'hello.world.asdf') -> 'asdf',
- * relativePath('a.b.c', 'a.b.c.d.e') -> 'd.e',
- * relativePath('a', 'b') -> Error
+ * relativePath(['hello', 'world'], ['hello', 'world', 'asdf']) -> ['asdf'],
+ * relativePath(['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e']) -> ['d', 'e'],
+ * relativePath(['a'], ['b']) -> Error
  */
 export const relativePath = (basePath: Pxth, childPath: Pxth): Pxth => {
   if (basePath.length === 0) {
