@@ -66,5 +66,8 @@ describe('get', () => {
     };
     expect(get(obj, [])).toStrictEqual(obj);
     expect(get('asd', ['length'])).toBe(3);
+    expect(get(null, ['a', 'b'])).toBe(undefined);
+    expect(get(null, [])).toBe(null);
+    expect(get(null, ['a', 'b'], 'a')).toBe('a');
   });
 });
