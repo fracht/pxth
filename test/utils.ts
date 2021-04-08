@@ -1,9 +1,31 @@
+import chalk from 'chalk';
+
 type ArrayTestHandler<T> = {
   toBeTruthy: (func: (value: T) => any) => void;
   toBeFalsy: (func: (value: T) => any) => void;
   toBe: <K>(func: (value: T) => K, expectedValue: K) => void;
   apply: (func: (value: T) => any) => void;
 };
+
+declare global {
+  namespace jest {
+    interface Matchers<R> {
+      toBeWithLog(expected: unknown, testedValue: unknown): R;
+    }
+  }
+}
+
+expect.extend({
+  toBeWithLog: (received: unknown, expected: unknown, value: unknown) => ({
+    pass: received === expected,
+    message: () =>
+      `Expected value ${chalk.bold.green(
+        JSON.stringify(expected),
+      )}, but got ${chalk.bold.yellow(
+        JSON.stringify(received),
+      )}, when testing with value ${chalk.bold.cyan(JSON.stringify(value))}`,
+  }),
+});
 
 export const expectTestArray = <T>(tests: Array<T>): ArrayTestHandler<T> => {
   const apply: ArrayTestHandler<T>['apply'] = (func) => {
@@ -14,7 +36,7 @@ export const expectTestArray = <T>(tests: Array<T>): ArrayTestHandler<T> => {
 
   const toBe: ArrayTestHandler<T>['toBe'] = (func, expectedValue) =>
     apply((value) => {
-      expect(func(value)).toBe(expectedValue);
+      expect(func(value)).toBeWithLog(expectedValue, value);
     });
 
   return {
