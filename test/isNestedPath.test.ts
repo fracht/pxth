@@ -7,6 +7,7 @@ describe('isNestedPath', () => {
     expect(isNestedPath(['hello'], ['chello'])).toBeFalsy();
     expect(isNestedPath(['hello', 'asdf'], ['hello', 'a'])).toBeFalsy();
     expect(isNestedPath(['hello', 'asdf'], ['hello', 'a'])).toBeFalsy();
+    expect(isNestedPath(['hello', 'asdf', 'b'], ['hello'])).toBeFalsy();
   });
 
   it('should return true', () => {
