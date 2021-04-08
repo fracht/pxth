@@ -4,6 +4,13 @@
   "description": "Tiny utility library for object property path handling",
   "main": "./dist/index.js",
   "module": "./dist/pxth.esm.js",
+  "keywords": [
+    "deep",
+    "object",
+    "path",
+    "utility",
+    "nested"
+  ],
   "files": [
     "dist"
   ],
