@@ -1,4 +1,5 @@
 import { Pxth, pxthToString, StringifyError } from '../src';
+import { expectTestArray, expectTestMap } from './utils';
 
 describe('pxthToString', () => {
   it('should stringify path', () => {
@@ -8,9 +9,7 @@ describe('pxthToString', () => {
       'as.0.asd.15': ['as', 0, 'asd', 15],
     };
 
-    for (const expectedPath in tests) {
-      expect(pxthToString(tests[expectedPath])).toBe(expectedPath);
-    }
+    expectTestMap(tests).toBeKey(pxthToString);
   });
 
   it('should escape paths', () => {
@@ -24,9 +23,7 @@ describe('pxthToString', () => {
       ],
     };
 
-    for (const expectedPath in tests) {
-      expect(pxthToString(tests[expectedPath])).toBe(expectedPath);
-    }
+    expectTestMap(tests).toBeKey(pxthToString);
   });
 
   it('should throw error', () => {
@@ -37,10 +34,10 @@ describe('pxthToString', () => {
       [Symbol.for(''), 11],
     ];
 
-    for (const testCase of tests) {
+    expectTestArray(tests).apply((testCase) =>
       expect(() => pxthToString((testCase as unknown) as Pxth)).toThrow(
         StringifyError,
-      );
-    }
+      ),
+    );
   });
 });

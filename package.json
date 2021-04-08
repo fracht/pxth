@@ -48,7 +48,7 @@
     "@size-limit/preset-small-lib": "^4.10.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
-    "aqu": "0.1.0",
+    "aqu": "^0.1.0",
     "husky": "^5.1.3",
     "lint-staged": "^10.5.4",
     "np": "^7.4.0",

@@ -1,4 +1,5 @@
 import { canBeStringified, Pxth } from '../src';
+import { expectTestArray } from './utils';
 
 describe('canBeStringified', () => {
   it('should success', () => {
@@ -9,9 +10,7 @@ describe('canBeStringified', () => {
       [0, 11, 'asdf', -15, '"\'.....as ././. Symbol()', '.', '..'],
     ];
 
-    for (const testCase of tests) {
-      expect(canBeStringified(testCase)).toBeTruthy();
-    }
+    expectTestArray(tests).toBeTruthy(canBeStringified);
   });
   it('should fail', () => {
     const tests = [
@@ -19,8 +18,7 @@ describe('canBeStringified', () => {
       ['asdf', 0, Symbol(), '111', -1],
       [{}, new Date(), Symbol.for('asd'), -11],
     ];
-    for (const testCase of tests) {
-      expect(canBeStringified((testCase as unknown) as Pxth)).toBeFalsy();
-    }
+
+    expectTestArray(tests as Array<Pxth>).toBeFalsy(canBeStringified);
   });
 });
