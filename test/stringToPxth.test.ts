@@ -27,7 +27,7 @@ describe('stringToPxth', () => {
 
   it('should handle complex paths', () => {
     const tests: Record<string, Pxth> = {
-      'a[-1.23]["[\\"b\\"]"].c[\'[\\\'d\\\']\'][\ne\n][f].g': [
+      'a[-1.23]["[\\"b\\"]"].c[\'[\\\'d\\\']\']["\ne\n"][f].g': [
         'a',
         '-1.23',
         '["b"]',
