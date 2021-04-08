@@ -5,6 +5,11 @@ describe('longestCommonPath', () => {
     expect(longestCommonPath([])).toStrictEqual([]);
     expect(longestCommonPath([[]])).toStrictEqual([]);
     expect(longestCommonPath([['asdf']])).toStrictEqual(['asdf']);
+    expect(longestCommonPath([[0], ['0']])).toStrictEqual([]);
+    expect(longestCommonPath([[Symbol()], [Symbol()]])).toStrictEqual([]);
+    expect(
+      longestCommonPath([[Symbol.for('asd')], [Symbol.for('asd')]]),
+    ).toStrictEqual([Symbol.for('asd')]);
   });
   it('should return longest common path', () => {
     expect(
