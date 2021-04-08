@@ -9,3 +9,4 @@ export * from './longestCommonPath';
 export * from './relativePath';
 export * from './toObjectKey';
 export * from './constants';
+export * from './toPxth';
