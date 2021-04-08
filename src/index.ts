@@ -7,3 +7,5 @@ export * from './set';
 export * from './isNestedPath';
 export * from './longestCommonPath';
 export * from './relativePath';
+export * from './toObjectKey';
+export * from './constants';
