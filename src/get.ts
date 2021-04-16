@@ -1,14 +1,21 @@
-import { Pxth } from './Pxth';
+import { Pxth, PxthSegment } from './Pxth';
+import { toPxth } from './toPxth';
 
-export function get<T, V>(object: T, path: Pxth): V | undefined;
-
-export function get<T, V>(object: T, path: Pxth, defaultValue: V): V;
+export function get<T, V>(object: T, path: Pxth | PxthSegment): V | undefined;
 
 export function get<T, V>(
   object: T,
-  path: Pxth,
+  path: Pxth | PxthSegment,
+  defaultValue: V,
+): V;
+
+export function get<T, V>(
+  object: T,
+  path: Pxth | PxthSegment,
   defaultValue?: V,
 ): V | undefined {
+  path = toPxth(path);
+
   let obj: unknown = object as unknown;
 
   for (let i = 0; i < path.length; i++) {

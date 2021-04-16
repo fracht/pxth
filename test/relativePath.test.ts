@@ -20,6 +20,7 @@ describe('relativePath', () => {
       ),
     ).toStrictEqual([]);
   });
+
   it('should handle simple cases', () => {
     expect(
       relativePath(['hello', 'world'], ['hello', 'world', 'nested', 'path']),
@@ -29,6 +30,21 @@ describe('relativePath', () => {
         ['yes', 'this', 'is', 0, 'some', 'path'],
         ['yes', 'this', 'is', 0, 'some', 'path', 'asdf', 'lol'],
       ),
+    ).toStrictEqual(['asdf', 'lol']);
+  });
+
+  it('should handle non-pxth paths', () => {
+    expect(
+      relativePath('yes.this.is.0.some.path', [
+        'yes',
+        'this',
+        'is',
+        0,
+        'some',
+        'path',
+        'asdf',
+        'lol',
+      ]),
     ).toStrictEqual(['asdf', 'lol']);
   });
 });

@@ -1,4 +1,5 @@
-import { Pxth } from './Pxth';
+import { Pxth, PxthSegment } from './Pxth';
+import { toPxth } from './toPxth';
 
 const comparePaths = (a: Pxth, b: Pxth) => {
   let i = 0;
@@ -18,19 +19,21 @@ const comparePaths = (a: Pxth, b: Pxth) => {
   return cmp || a.length - b.length;
 };
 
-export const longestCommonPath = (paths: Pxth[]): Pxth => {
-  if (paths.length === 0) {
+export const longestCommonPath = (paths: (Pxth | PxthSegment)[]): Pxth => {
+  const normalizedPaths = paths.map(toPxth);
+
+  if (normalizedPaths.length === 0) {
     return [];
   }
 
-  if (paths.length === 1) {
-    return paths[0];
+  if (normalizedPaths.length === 1) {
+    return normalizedPaths[0];
   }
 
-  paths.sort(comparePaths);
+  normalizedPaths.sort(comparePaths);
 
-  const firstPath = paths[0];
-  const lastPath = paths[paths.length - 1];
+  const firstPath = normalizedPaths[0];
+  const lastPath = normalizedPaths[normalizedPaths.length - 1];
 
   for (let i = 0; i < firstPath.length; i++) {
     if (firstPath[i] !== lastPath[i]) {

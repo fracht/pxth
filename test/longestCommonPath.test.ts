@@ -56,4 +56,22 @@ describe('longestCommonPath', () => {
       ]),
     ).toStrictEqual([]);
   });
+  it('should handle non-pxth paths', () => {
+    expect(
+      longestCommonPath([
+        'undefined',
+        'undefined',
+        'undefined.undefined.undefinedb',
+        'undefineda.hello',
+        'undefined.undefined',
+      ]),
+    ).toStrictEqual([]);
+    expect(
+      longestCommonPath([
+        'hello.this.is.world',
+        ['hello', 'this', 'is', 'bye'],
+        'hello.this.is',
+      ]),
+    ).toStrictEqual(['hello', 'this', 'is']);
+  });
 });

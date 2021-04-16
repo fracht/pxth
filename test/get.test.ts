@@ -1,3 +1,4 @@
+import { ROOT_PATH } from '../src';
 import { get } from '../src/get';
 
 describe('get', () => {
@@ -69,5 +70,13 @@ describe('get', () => {
     expect(get(null, ['a', 'b'])).toBe(undefined);
     expect(get(null, [])).toBe(null);
     expect(get(null, ['a', 'b'], 'a')).toBe('a');
+  });
+
+  it('should handle non-pxth paths', () => {
+    const obj = {
+      hello: ['a'],
+    };
+    expect(get(obj, ROOT_PATH)).toBe(obj);
+    expect(get(obj, 'hello.0')).toBe('a');
   });
 });

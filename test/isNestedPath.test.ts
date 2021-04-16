@@ -36,4 +36,12 @@ describe('isNestedPath', () => {
       isNestedPath(['hello', 0, 'bsdf'], ['hello', 0, 'bsdf', 'lol', 'k', 'w']),
     ).toBeTruthy();
   });
+
+  it('should handle non-pxth paths', () => {
+    expect(
+      isNestedPath('hello.asdf.bsdf', 'hello.asdf.bsdf.lol.k.w'),
+    ).toBeTruthy();
+    expect(isNestedPath('hello.0.bsdf', 'hello.0.bsdf.lol.k.w')).toBeTruthy();
+    expect(isNestedPath('hello', 'bye')).toBeFalsy();
+  });
 });

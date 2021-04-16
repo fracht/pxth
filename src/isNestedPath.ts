@@ -1,9 +1,16 @@
-import { Pxth } from './Pxth';
+import { Pxth, PxthSegment } from './Pxth';
+import { toPxth } from './toPxth';
 
 /**
  * Check if **b** nested path of **a**
  */
-export const isNestedPath = (a: Pxth, b: Pxth): boolean => {
+export const isNestedPath = (
+  a: Pxth | PxthSegment,
+  b: Pxth | PxthSegment,
+): boolean => {
+  a = toPxth(a);
+  b = toPxth(b);
+
   if (b.length < a.length) {
     return false;
   }
