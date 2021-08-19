@@ -62,5 +62,9 @@
         "size-limit": "^4.10.0",
         "typescript": "^4.2.3"
     },
-    "types": "./dist/pxth.d.ts"
+    "types": "./dist/pxth.d.ts",
+    "dependencies": {
+        "lodash": "^4.17.21",
+        "tiny-invariant": "^1.1.0"
+    }
 }
