@@ -118,9 +118,9 @@ Usage:
 import { longestCommonPath } from 'pxth';
 
 longestCommonPath([
-  ['hello', 'a'],
-  ['hello', 'b'],
-  ['hello', 'c'],
+    ['hello', 'a'],
+    ['hello', 'b'],
+    ['hello', 'c'],
 ]); // -> ['hello']
 
 longestCommonPath([['a'], ['b'], ['c']]); // -> []
