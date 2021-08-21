@@ -1,53 +1,42 @@
-declare const NumberPxthToken: unique symbol;
+declare const NumberPxthBrand: unique symbol;
+declare const StringPxthBrand: unique symbol;
+declare const BooleanPxthBrand: unique symbol;
+declare const BigIntPxthBrand: unique symbol;
+declare const UnknownPxthBrand: unique symbol;
+declare const ObjectPxthBrand: unique symbol;
+declare const ArrayPxthBrand: unique symbol;
 
-type NumberPxth = {
-    _token: typeof NumberPxthToken;
+declare const ObjectBrandKey: unique symbol;
+declare const BrandKey: unique symbol;
+
+export type PrimitivePxth<V> = {
+    [BrandKey]: V extends string
+        ? typeof StringPxthBrand
+        : V extends number
+        ? typeof NumberPxthBrand
+        : V extends boolean
+        ? typeof BooleanPxthBrand
+        : V extends bigint
+        ? typeof BigIntPxthBrand
+        : typeof UnknownPxthBrand;
 };
 
-declare const StringPxthToken: unique symbol;
-
-type StringPxth = {
-    _token: typeof StringPxthToken;
+export type ObjectPxth<V extends object> = {
+    [K in keyof V]: Pxth<V>;
+} & {
+    [BrandKey]: typeof ObjectPxthBrand;
 };
 
-declare const BooleanPxthToken: unique symbol;
-
-type BooleanPxth = {
-    _token: typeof BooleanPxthToken;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ArrayPxth<V extends Array<any>> = Array<Pxth<V[number]>> & {
+    [BrandKey]: typeof ArrayPxthBrand;
 };
 
-declare const BigIntPxthToken: unique symbol;
-
-type BigIntPxth = {
-    _token: typeof BigIntPxthToken;
-};
-
-declare const UnknownPxthToken: unique symbol;
-
-type UnknownPxth = {
-    _token: typeof UnknownPxthToken;
-};
-
-declare const DatePxthToken: unique symbol;
-
-type DatePxth = {
-    _token: typeof DatePxthToken;
-};
-
-export type PrimitivePxth<V> = V extends string
-    ? StringPxth
-    : V extends number
-    ? NumberPxth
-    : V extends boolean
-    ? BooleanPxth
-    : V extends bigint
-    ? BigIntPxth
-    : UnknownPxth;
-
-export type Pxth<V> = V extends object
-    ? V extends Date
-        ? DatePxth
-        : {
-              [K in keyof V]: Pxth<V[K]>;
-          }
-    : PrimitivePxth<V>;
+export type Pxth<V> = {
+    [ObjectBrandKey]: 'brand';
+} & (V extends object
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      V extends Array<any>
+        ? ArrayPxth<V>
+        : ObjectPxth<V>
+    : PrimitivePxth<V>);
