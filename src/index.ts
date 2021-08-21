@@ -1,6 +1,7 @@
 export * from './createPxth';
 export * from './deepGet';
-export { getPxthSource } from './getPxthSource';
+export { getPxthSegments } from './getPxthSegments';
 export * from './Pxth';
 export * from './PxthSource';
 export * from './RootPath';
+export * from './unsafe_createPxth';

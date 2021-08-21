@@ -1,11 +1,11 @@
-import { GuardedPathToken, GuardToken, SegmentsToken } from './getPxthSource';
+import { GuardedPathToken, GuardToken, SegmentsToken } from './getPxthSegments';
 import { Pxth } from './Pxth';
-import { PxthSource } from './PxthSource';
+import { PxthSegments } from './PxthSource';
 
 const handlers: ProxyHandler<{
-    source: PxthSource;
+    source: PxthSegments;
     guard: (value: unknown) => value is unknown;
-    guardedPath: PxthSource;
+    guardedPath: PxthSegments;
 }> = {
     get: (target, path) => {
         if (path === SegmentsToken) {
@@ -29,9 +29,9 @@ const handlers: ProxyHandler<{
 };
 
 export const createPxthProxy = <Type, GuardedType = Type>(
-    path: PxthSource,
+    path: PxthSegments,
     guard: (value: unknown) => value is GuardedType,
-    guardedPath: PxthSource = path,
+    guardedPath: PxthSegments = path,
 ): Pxth<Type> => {
     return (new Proxy(
         {

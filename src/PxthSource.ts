@@ -1,1 +1,1 @@
-export type PxthSource = (string | symbol)[];
+export type PxthSegments = (string | symbol)[];

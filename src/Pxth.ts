@@ -22,7 +22,7 @@ export type PrimitivePxth<V> = {
 };
 
 export type ObjectPxth<V extends object> = {
-    [K in keyof V]: Pxth<V>;
+    [K in keyof V]: Pxth<V[K]>;
 } & {
     [BrandKey]: typeof ObjectPxthBrand;
 };
