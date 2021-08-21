@@ -1,66 +1,70 @@
 {
-  "name": "pxth",
-  "version": "0.1.0",
-  "description": "Tiny utility library for object property path handling",
-  "main": "./dist/index.js",
-  "module": "./dist/pxth.esm.js",
-  "keywords": [
-    "deep",
-    "object",
-    "path",
-    "utility",
-    "nested"
-  ],
-  "files": [
-    "dist"
-  ],
-  "size-limit": [
-    {
-      "path": "dist/pxth.cjs.production.min.js",
-      "limit": "10 KB"
+    "name": "pxth",
+    "version": "0.1.0",
+    "description": "Tiny utility library for object property path handling",
+    "main": "./dist/index.js",
+    "module": "./dist/pxth.esm.js",
+    "keywords": [
+        "deep",
+        "object",
+        "path",
+        "utility",
+        "nested"
+    ],
+    "files": [
+        "dist"
+    ],
+    "size-limit": [
+        {
+            "path": "dist/pxth.cjs.production.min.js",
+            "limit": "10 KB"
+        },
+        {
+            "path": "dist/pxth.esm.js",
+            "limit": "10 KB"
+        }
+    ],
+    "scripts": {
+        "build": "aqu build",
+        "start": "aqu watch",
+        "lint": "aqu lint",
+        "lint:fix": "aqu lint --fix",
+        "lint:staged": "lint-staged",
+        "test": "aqu test --passWithNoTests",
+        "test:watch": "aqu test --passWithNoTests --watch",
+        "test:coverage": "aqu test --silent --ci --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
+        "prepare": "aqu build",
+        "release": "np",
+        "size": "size-limit",
+        "size:why": "size-limit --why"
     },
-    {
-      "path": "dist/pxth.esm.js",
-      "limit": "10 KB"
+    "lint-staged": {
+        "**/*.{js,jsx,ts,tsx,json}": "npm run lint:fix"
+    },
+    "author": "Artiom Tretjakovas",
+    "license": "MIT",
+    "homepage": "https://github.com/ArtiomTr/pxth#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ArtiomTr/pxth.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ArtiomTr/pxth/issues"
+    },
+    "devDependencies": {
+        "@size-limit/preset-small-lib": "^4.10.0",
+        "@types/jest": "^26.0.20",
+        "@types/node": "^14.14.31",
+        "aqu": "^0.1.0",
+        "husky": "^5.1.3",
+        "lint-staged": "^10.5.4",
+        "np": "^7.4.0",
+        "size-limit": "^4.10.0",
+        "typescript": "^4.2.3"
+    },
+    "types": "./dist/pxth.d.ts",
+    "dependencies": {
+        "lodash": "^4.17.21",
+        "tiny-invariant": "^1.1.0"
     }
-  ],
-  "scripts": {
-    "build": "aqu build",
-    "start": "aqu watch",
-    "lint": "aqu lint",
-    "lint:fix": "aqu lint --fix",
-    "lint:staged": "lint-staged",
-    "test": "aqu test --passWithNoTests",
-    "test:watch": "aqu test --passWithNoTests --watch",
-    "test:coverage": "aqu test --silent --ci --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
-    "prepare": "aqu build",
-    "release": "np",
-    "size": "size-limit",
-    "size:why": "size-limit --why"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,json}": "npm run lint:fix"
-  },
-  "author": "Artiom Tretjakovas",
-  "license": "MIT",
-  "homepage": "https://github.com/ArtiomTr/pxth#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ArtiomTr/pxth.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ArtiomTr/pxth/issues"
-  },
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.0",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.31",
-    "aqu": "^0.1.0",
-    "husky": "^5.1.3",
-    "lint-staged": "^10.5.4",
-    "np": "^7.4.0",
-    "size-limit": "^4.10.0",
-    "typescript": "^4.2.3"
-  },
-  "types": "./dist/pxth.d.ts"
 }
