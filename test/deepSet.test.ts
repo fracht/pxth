@@ -1,10 +1,8 @@
-import { deepSet, unsafe_createPxth } from '../src';
+import { deepSet, createPxth } from '../src';
 
 describe('deepSet', () => {
     it('should deeply set value', () => {
-        expect(
-            deepSet({}, unsafe_createPxth(['hello', 'world']), 'a'),
-        ).toStrictEqual({
+        expect(deepSet({}, createPxth(['hello', 'world']), 'a')).toStrictEqual({
             hello: {
                 world: 'a',
             },
@@ -12,9 +10,7 @@ describe('deepSet', () => {
     });
 
     it('should return value', () => {
-        expect(
-            deepSet({}, unsafe_createPxth([]), { obj: 'asdf' }),
-        ).toStrictEqual({
+        expect(deepSet({}, createPxth([]), { obj: 'asdf' })).toStrictEqual({
             obj: 'asdf',
         });
     });

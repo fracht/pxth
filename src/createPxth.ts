@@ -1,10 +1,6 @@
 import { createPxthProxy } from './createPxthProxy';
-import { PxthSegments } from './PxthSource';
-import { Pxth } from '.';
+import { Pxth, PxthSegments } from '.';
 
-export const createPxth = <T>(
-    path: PxthSegments,
-    guard: (value: unknown) => value is T,
-): Pxth<T> => {
-    return createPxthProxy(path, guard);
+export const createPxth = <T>(path: PxthSegments): Pxth<T> => {
+    return createPxthProxy(path);
 };

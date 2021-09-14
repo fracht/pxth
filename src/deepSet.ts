@@ -8,7 +8,7 @@ export const deepSet = <T>(
     path: Pxth<T>,
     value: T,
 ): unknown => {
-    const segments = getPxthSegments(path, object);
+    const segments = getPxthSegments(path);
 
     if (segments.length === 0) {
         return value;
