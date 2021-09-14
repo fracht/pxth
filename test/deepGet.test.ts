@@ -1,22 +1,15 @@
-import { createPxth, deepGet, unsafe_createPxth } from '../src';
+import { deepGet, createPxth } from '../src';
 
 describe('deep get', () => {
     it('should deeply get value', () => {
         expect(
-            deepGet(
-                { value: { a: 'hello' } },
-                createPxth(
-                    ['value', 'a'],
-                    (value: unknown): value is string =>
-                        typeof value === 'string',
-                ),
-            ),
+            deepGet({ value: { a: 'hello' } }, createPxth(['value', 'a'])),
         ).toBe('hello');
     });
 
     it('should return all values', () => {
         expect(
-            deepGet({ value: { a: 'hello' } }, unsafe_createPxth([])),
+            deepGet({ value: { a: 'hello' } }, createPxth([])),
         ).toStrictEqual({
             value: {
                 a: 'hello',
