@@ -32,7 +32,7 @@
         "lint:staged": "lint-staged",
         "test": "aqu test --passWithNoTests",
         "test:watch": "aqu test --passWithNoTests --watch",
-        "test:coverage": "aqu --silent --ci --coverage --testLocationInResults --json --outputFile=\"report.json\"",
+        "test:coverage": "aqu test --silent --ci --coverage --testLocationInResults --json --outputFile=\"report.json\"",
         "prepare": "aqu build",
         "release": "np",
         "size": "size-limit",
