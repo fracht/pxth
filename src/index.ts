@@ -6,3 +6,4 @@ export * from './PxthSource';
 export * from './RootPath';
 export * from './createPxth';
 export * from './pxthToString';
+export * from './parseSegmentsFromString';
