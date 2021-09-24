@@ -6,6 +6,10 @@ const handlers: ProxyHandler<{
     source: PxthSegments;
 }> = {
     get: (target, path) => {
+        if (path === 'toJSON') {
+            return () => ({ source: target.source });
+        }
+
         if (path === SegmentsToken) {
             return target.source;
         }

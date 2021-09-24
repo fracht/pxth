@@ -23,4 +23,11 @@ describe('PxthProxy', () => {
             'world',
         ]);
     });
+
+    it('should be possible to convert to json', () => {
+        expect(JSON.stringify(createPxthProxy([]))).toBe('{"source":[]}');
+        expect(JSON.stringify(createPxthProxy(['hello', 'world']))).toBe(
+            '{"source":["hello","world"]}',
+        );
+    });
 });
