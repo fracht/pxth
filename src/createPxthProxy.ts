@@ -10,6 +10,10 @@ const handlers: ProxyHandler<{
             return () => ({ source: target.source });
         }
 
+        if (path === 'constructor') {
+            return null;
+        }
+
         if (path === SegmentsToken) {
             return target.source;
         }
