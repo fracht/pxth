@@ -30,4 +30,10 @@ describe('PxthProxy', () => {
             '{"source":["hello","world"]}',
         );
     });
+
+    it('should return same reference each time', () => {
+        const pxth = createPxthProxy<{ b: string }>(['aaa']);
+
+        expect(pxth.b).toBe(pxth.b);
+    });
 });
