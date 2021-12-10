@@ -2,12 +2,14 @@ import { SegmentsToken } from './getPxthSegments';
 import { Pxth } from './Pxth';
 import { PxthSegments } from './PxthSource';
 
-const handlers: ProxyHandler<{
-    source: PxthSegments;
-}> = {
+const handlers: ProxyHandler<
+    Record<string, Pxth<unknown>> & {
+        [SegmentsToken]: string[];
+    }
+> = {
     get: (target, path) => {
         if (path === 'toJSON') {
-            return () => ({ source: target.source });
+            return () => ({ source: target[SegmentsToken] });
         }
 
         if (path === 'constructor') {
@@ -15,17 +17,24 @@ const handlers: ProxyHandler<{
         }
 
         if (path === SegmentsToken) {
-            return target.source;
+            return target[SegmentsToken];
         }
 
-        return createPxthProxy([...target.source, path]);
+        if (!(path in target)) {
+            target[path as string] = createPxthProxy([
+                ...target[SegmentsToken],
+                path,
+            ]);
+        }
+
+        return target[path as string];
     },
 };
 
 export const createPxthProxy = <Type>(path: PxthSegments): Pxth<Type> => {
     return (new Proxy(
         {
-            source: path,
+            [SegmentsToken]: path,
         },
         handlers,
     ) as unknown) as Pxth<Type>;
