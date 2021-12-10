@@ -1,6 +1,6 @@
 {
     "name": "pxth",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Tiny utility library for object property path handling",
     "main": "./dist/index.js",
     "module": "./dist/pxth.esm.js",
