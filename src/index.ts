@@ -7,3 +7,4 @@ export * from './RootPath';
 export * from './createPxth';
 export * from './pxthToString';
 export * from './parseSegmentsFromString';
+export * from './isPxth';
