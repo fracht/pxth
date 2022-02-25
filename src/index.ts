@@ -10,3 +10,4 @@ export * from './parseSegmentsFromString';
 
 export * from './isPxth';
 export * from './samePxth';
+export * from './joinPaths';
