@@ -12,3 +12,4 @@ export * from './isPxth';
 export * from './samePxth';
 export * from './joinPaths';
 export * from './relativePxth';
+export * from './longestCommonPxth';
