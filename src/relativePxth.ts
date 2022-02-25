@@ -14,10 +14,10 @@ import { samePxth } from './samePxth';
  * relativePxth(['a', 'b', 'c'], ['a', 'b', 'c']) -> ROOT_PATH,
  * relativePxth(['a'], ['b']) -> Error
  */
-export const relativePxth = <A, B>(
-    basePath: Pxth<A>,
-    subPath: Pxth<B>,
-): Pxth<B> => {
+export const relativePxth = (
+    basePath: Pxth<unknown>,
+    subPath: Pxth<unknown>,
+): Pxth<unknown> => {
     const basePathSegments = getPxthSegments(basePath);
     const subPathSegments = getPxthSegments(subPath);
 
