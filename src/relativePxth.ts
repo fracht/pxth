@@ -9,10 +9,10 @@ import { samePxth } from './samePxth';
 /**
  * Returns relative path. If subPath is not child of basePath, it will throw an error.
  * @example
- * relativePath(['hello', 'world'], ['hello', 'world', 'asdf']) -> ['asdf'],
- * relativePath(['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e']) -> ['d', 'e'],
- * relativePath(['a', 'b', 'c'], ['a', 'b', 'c']) -> ROOT_PATH,
- * relativePath(['a'], ['b']) -> Error
+ * relativePxth(['hello', 'world'], ['hello', 'world', 'asdf']) -> ['asdf'],
+ * relativePxth(['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e']) -> ['d', 'e'],
+ * relativePxth(['a', 'b', 'c'], ['a', 'b', 'c']) -> ROOT_PATH,
+ * relativePxth(['a'], ['b']) -> Error
  */
 export const relativePxth = <A, B>(
     basePath: Pxth<A>,
