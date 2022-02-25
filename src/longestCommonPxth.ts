@@ -9,7 +9,7 @@ import { PxthSegments } from './PxthSource';
  * [['hello', 'world'], ['hello', 'world, 'yes'], ['hello', 'world', 'bye', 'asdf']] -> 'hello.world'
  * [['a'], ['b'], ['c']] -> ROOT_PATH
  */
-export const longestCommonPath = <V>(paths: Pxth<unknown>[]): Pxth<V> => {
+export const longestCommonPxth = <V>(paths: Pxth<unknown>[]): Pxth<V> => {
     if (paths.length === 0) return createPxth([]);
     if (paths.length === 1) return paths[0] as Pxth<V>;
 

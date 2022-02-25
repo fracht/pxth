@@ -1,20 +1,20 @@
 import { shuffle } from 'lodash';
-import { createPxth, getPxthSegments, longestCommonPath } from '../src';
+import { createPxth, getPxthSegments, longestCommonPxth } from '../src';
 
 describe('longestCommonPxth', () => {
     it('hit cases', () => {
-        expect(getPxthSegments(longestCommonPath([]))).toStrictEqual([]);
+        expect(getPxthSegments(longestCommonPxth([]))).toStrictEqual([]);
         expect(
-            getPxthSegments(longestCommonPath([createPxth([])])),
+            getPxthSegments(longestCommonPxth([createPxth([])])),
         ).toStrictEqual([]);
         expect(
-            getPxthSegments(longestCommonPath([createPxth(['asdf'])])),
+            getPxthSegments(longestCommonPxth([createPxth(['asdf'])])),
         ).toStrictEqual(['asdf']);
     });
     it('should return longest common path', () => {
         expect(
             getPxthSegments(
-                longestCommonPath([
+                longestCommonPxth([
                     createPxth(['asdf']),
                     createPxth(['asdf', 'hello']),
                     createPxth(['asdf', 'bye']),
@@ -24,7 +24,7 @@ describe('longestCommonPxth', () => {
         ).toStrictEqual(['asdf']);
         expect(
             getPxthSegments(
-                longestCommonPath([
+                longestCommonPxth([
                     createPxth(['hello', 'this', 'is', 'world']),
                     createPxth(['hello', 'this', 'is', 'bye']),
                     createPxth(['hello', 'this', 'is']),
@@ -35,7 +35,7 @@ describe('longestCommonPxth', () => {
     it('no common paths', () => {
         expect(
             getPxthSegments(
-                longestCommonPath(
+                longestCommonPxth(
                     shuffle([
                         createPxth(['asdf']),
                         createPxth(['asdf', 'hello']),
@@ -48,7 +48,7 @@ describe('longestCommonPxth', () => {
         ).toStrictEqual([]);
         expect(
             getPxthSegments(
-                longestCommonPath(
+                longestCommonPxth(
                     shuffle([
                         createPxth(['hello', 'this', 'is', 'world']),
                         createPxth(['hello', 'this', 'is', 'bye']),
