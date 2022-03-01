@@ -7,7 +7,7 @@ import { PxthSegments } from './PxthSource';
  * Finds longest common path.
  * @example
  * [['hello', 'world'], ['hello', 'world, 'yes'], ['hello', 'world', 'bye', 'asdf']] -> 'hello.world'
- * [['a'], ['b'], ['c']] -> ROOT_PATH
+ * [['a'], ['b'], ['c']] -> RootPathToken
  */
 export const longestCommonPxth = (paths: Pxth<unknown>[]): Pxth<unknown> => {
     if (paths.length === 0) return createPxth([]);
