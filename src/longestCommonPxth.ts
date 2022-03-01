@@ -10,19 +10,30 @@ import { PxthSegments } from './PxthSource';
  * [['a'], ['b'], ['c']] -> RootPathToken
  */
 export const longestCommonPxth = (paths: Pxth<unknown>[]): Pxth<unknown> => {
-    if (paths.length === 0) return createPxth([]);
-    if (paths.length === 1) return paths[0];
+    if (paths.length === 0) {
+        return createPxth([]);
+    }
 
-    const segments = paths.map(getPxthSegments);
+    if (paths.length === 1) {
+        return paths[0];
+    }
+
+    const segmentedPaths = paths.map(getPxthSegments);
 
     const longestCommonPathSegments: PxthSegments = [];
 
-    segments.sort((a, b) => a.length - b.length);
+    const shortestPath = segmentedPaths.reduce((acc, value) => {
+        if (value.length < acc.length) {
+            return value;
+        }
 
-    for (let i = 0; i < segments[0].length; i++) {
-        const segment = segments[0][i];
+        return acc;
+    }, segmentedPaths[0]);
 
-        if (segments.every((path) => path[i] === segment)) {
+    for (let i = 0; i < shortestPath.length; i++) {
+        const segment = shortestPath[i];
+
+        if (segmentedPaths.every((path) => path[i] === segment)) {
             longestCommonPathSegments.push(segment);
         }
     }
