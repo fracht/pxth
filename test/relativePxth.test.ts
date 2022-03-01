@@ -1,4 +1,4 @@
-import { relativePxth, createPxth, pxthToString } from '../src';
+import { relativePxth, createPxth, getPxthSegments } from '../src';
 
 describe('relativePxth', () => {
     it('hit cases', () => {
@@ -31,44 +31,44 @@ describe('relativePxth', () => {
             ),
         ).toThrow();
         expect(
-            pxthToString(
+            getPxthSegments(
                 relativePxth(
                     createPxth(['hello', 'world', '0', 'same']),
                     createPxth(['hello', 'world', '0', 'same']),
                 ),
             ),
-        ).toBe(pxthToString(createPxth([])));
-        expect(pxthToString(relativePxth(createPxth([]), createPxth([])))).toBe(
-            pxthToString(createPxth([])),
-        );
+        ).toStrictEqual([]);
         expect(
-            pxthToString(
+            getPxthSegments(relativePxth(createPxth([]), createPxth([]))),
+        ).toStrictEqual([]);
+        expect(
+            getPxthSegments(
                 relativePxth(createPxth([]), createPxth(['nested', 'path'])),
             ),
-        ).toBe(pxthToString(createPxth(['nested', 'path'])));
+        ).toStrictEqual(['nested', 'path']);
         expect(() =>
             relativePxth(createPxth(['helo']), createPxth([])),
         ).toThrow();
         expect(
-            pxthToString(
+            getPxthSegments(
                 relativePxth(
                     createPxth(['', '', 'asdf']),
                     createPxth(['', '', 'asdf', 'lol']),
                 ),
             ),
-        ).toBe(pxthToString(createPxth(['lol'])));
+        ).toStrictEqual(['lol']);
     });
     it('simple cases', () => {
         expect(
-            pxthToString(
+            getPxthSegments(
                 relativePxth(
                     createPxth(['hello', 'world']),
                     createPxth(['hello', 'world', 'nested', 'path']),
                 ),
             ),
-        ).toBe(pxthToString(createPxth(['nested', 'path'])));
+        ).toStrictEqual(['nested', 'path']);
         expect(
-            pxthToString(
+            getPxthSegments(
                 relativePxth(
                     createPxth(['yes', 'this', 'is', '0', 'some', 'path']),
                     createPxth([
@@ -83,6 +83,6 @@ describe('relativePxth', () => {
                     ]),
                 ),
             ),
-        ).toBe(pxthToString(createPxth(['asdf', 'lol'])));
+        ).toStrictEqual(['asdf', 'lol']);
     });
 });
