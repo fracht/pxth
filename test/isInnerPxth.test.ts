@@ -1,14 +1,15 @@
 import { createPxth, isInnerPxth } from '../src';
 
 describe('isInnerPxth', () => {
-    it('isInnerPxth false', () => {
+    it('should return false when path is not inner', () => {
         expect(isInnerPxth(createPxth(['hello']), createPxth(['b']))).toBe(
             false,
         );
         expect(isInnerPxth(createPxth(['hello']), createPxth(['helloa']))).toBe(
             false,
         );
-        expect(isInnerPxth(createPxth(['hello']), createPxth(['chello']))).toBe(
+        expect(isInnerPxth(createPxth(['.']), createPxth(['..']))).toBe(false);
+        expect(isInnerPxth(createPxth(['hello']), createPxth(['hello.']))).toBe(
             false,
         );
         expect(
@@ -18,14 +19,18 @@ describe('isInnerPxth', () => {
             ),
         ).toBe(false);
         expect(
-            isInnerPxth(createPxth(['hello', 'asdf']), createPxth(['helloa'])),
+            isInnerPxth(
+                createPxth(['hello', 'asdf']),
+                createPxth(['hello.asdf']),
+            ),
         ).toBe(false);
 
         // same paths
         expect(isInnerPxth(createPxth([]), createPxth([]))).toBe(false);
         expect(isInnerPxth(createPxth(['a']), createPxth(['a']))).toBe(false);
     });
-    it('isInnerPxth simple cases', () => {
+
+    it('should return true when path is inner', () => {
         expect(
             isInnerPxth(createPxth(['hello']), createPxth(['hello', 'asdf'])),
         ).toBe(true);
@@ -41,8 +46,12 @@ describe('isInnerPxth', () => {
                 createPxth(['hello', 'hello', 'hello']),
             ),
         ).toBe(true);
+        expect(
+            isInnerPxth(createPxth(['..']), createPxth(['..', 'hello', '.'])),
+        ).toBe(true);
     });
-    it('isInnerPxth complex cases', () => {
+
+    it('should return true when path is deeply inner', () => {
         expect(
             isInnerPxth(
                 createPxth(['hello', 'asdf', 'bsdf']),
@@ -53,6 +62,12 @@ describe('isInnerPxth', () => {
             isInnerPxth(
                 createPxth(['hello', '0', 'bsdf']),
                 createPxth(['hello', '0', 'bsdf', 'lol', 'k', 'w']),
+            ),
+        ).toBe(true);
+        expect(
+            isInnerPxth(
+                createPxth(['...', '..', '.']),
+                createPxth(['...', '..', '.', '@,', '$', '*&^']),
             ),
         ).toBe(true);
     });

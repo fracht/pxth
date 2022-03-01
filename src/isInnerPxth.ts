@@ -20,8 +20,13 @@ export const isInnerPxth = (
     const basePathSegments = getPxthSegments(basePath);
     const pathSegments = getPxthSegments(path);
 
-    if (pathSegments.length === 0 || samePxth(basePath, path)) return false;
-    if (basePathSegments.length === 0) return true;
+    if (pathSegments.length === 0 || samePxth(basePath, path)) {
+        return false;
+    }
+
+    if (basePathSegments.length === 0) {
+        return true;
+    }
 
     for (let i = 0; i < basePathSegments.length; i++) {
         if (basePathSegments[i] !== pathSegments[i]) {
