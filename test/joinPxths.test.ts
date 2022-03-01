@@ -1,27 +1,27 @@
-import { createPxth, getPxthSegments, joinPaths, pxthToString } from '../src';
+import { createPxth, getPxthSegments, joinPxths } from '../src';
 
-describe('joinPaths', () => {
+describe('joinPxths', () => {
     it('should join paths', () => {
         expect(
-            pxthToString(
-                joinPaths(createPxth(['hello']), createPxth(['world'])),
+            getPxthSegments(
+                joinPxths(createPxth(['hello']), createPxth(['world'])),
             ),
-        ).toBe('hello.world');
+        ).toStrictEqual(['hello', 'world']);
         expect(
-            pxthToString(joinPaths(createPxth([]), createPxth(['hello']))),
-        ).toBe('hello');
+            getPxthSegments(joinPxths(createPxth([]), createPxth(['hello']))),
+        ).toStrictEqual(['hello']);
         expect(
-            pxthToString(
-                joinPaths(
+            getPxthSegments(
+                joinPxths(
                     createPxth([]),
                     createPxth(['hello']),
                     createPxth(['world']),
                 ),
             ),
-        ).toBe('hello.world');
+        ).toStrictEqual(['hello', 'world']);
         expect(
             getPxthSegments(
-                joinPaths(
+                joinPxths(
                     createPxth(['hello.world', 'path']),
                     createPxth(['another']),
                 ),
@@ -29,7 +29,7 @@ describe('joinPaths', () => {
         ).toStrictEqual(['hello.world', 'path', 'another']);
         expect(
             getPxthSegments(
-                joinPaths(createPxth(['..a.b.c...']), createPxth(['...'])),
+                joinPxths(createPxth(['..a.b.c...']), createPxth(['...'])),
             ),
         ).toStrictEqual(['..a.b.c...', '...']);
     });

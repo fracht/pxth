@@ -8,7 +8,10 @@ describe('samePxth', () => {
         ).toBeTruthy();
         expect(samePxth(createPxth(['']), createPxth(['']))).toBeTruthy();
         expect(
-            samePxth(createPxth(['', '.', '']), createPxth(['', '.', ''])),
+            samePxth(
+                createPxth([' / ', '.', '']),
+                createPxth([' / ', '.', '']),
+            ),
         ).toBeTruthy();
         expect(
             samePxth(createPxth(['$', '.', '!']), createPxth(['$', '.', '!'])),

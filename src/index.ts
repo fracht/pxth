@@ -10,7 +10,7 @@ export * from './parseSegmentsFromString';
 
 export * from './isPxth';
 export * from './samePxth';
-export * from './joinPaths';
+export * from './joinPxths';
 export * from './relativePxth';
 export * from './longestCommonPxth';
 export * from './isInnerPxth';

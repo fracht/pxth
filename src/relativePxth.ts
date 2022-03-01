@@ -2,6 +2,7 @@ import invariant from 'tiny-invariant';
 
 import { createPxth } from './createPxth';
 import { getPxthSegments } from './getPxthSegments';
+import { isInnerPxth } from './isInnerPxth';
 import { Pxth } from './Pxth';
 import { pxthToString } from './pxthToString';
 import { samePxth } from './samePxth';
@@ -21,7 +22,7 @@ export const relativePxth = (
     const basePathSegments = getPxthSegments(basePath);
     const subPathSegments = getPxthSegments(subPath);
 
-    if (basePathSegments.length === 0 && subPathSegments.length === 0) {
+    if (samePxth(basePath as Pxth<unknown>, subPath as Pxth<unknown>)) {
         return createPxth([]);
     }
 
@@ -30,31 +31,11 @@ export const relativePxth = (
     }
 
     invariant(
-        subPathSegments.length !== 0,
-        'ROOT_PATH symbol cannot be sub path of any path',
+        isInnerPxth(basePath, subPath),
+        `${String(pxthToString(subPath))} is not innner path of ${String(
+            pxthToString(basePath),
+        )}`,
     );
-
-    invariant(
-        subPathSegments.length >= basePathSegments.length,
-        `Sub path (${String(
-            pxthToString(subPath),
-        )}) must be longer than base path (${String(pxthToString(basePath))})`,
-    );
-
-    for (let i = 0; i < basePathSegments.length; i++) {
-        if (subPathSegments[i] !== basePathSegments[i]) {
-            invariant(
-                false,
-                `${String(pxthToString(subPath))} is not sub path of ${String(
-                    pxthToString(basePath),
-                )}`,
-            );
-        }
-    }
-
-    if (samePxth(basePath as Pxth<unknown>, subPath as Pxth<unknown>)) {
-        return createPxth([]);
-    }
 
     return createPxth(subPathSegments.slice(basePathSegments.length));
 };

@@ -2,7 +2,7 @@ import { createPxth } from './createPxth';
 import { getPxthSegments } from './getPxthSegments';
 import { Pxth } from './Pxth';
 
-export const joinPaths = (...segments: Pxth<unknown>[]): Pxth<unknown> => {
+export const joinPxths = (...segments: Pxth<unknown>[]): Pxth<unknown> => {
     if (segments.length === 0) {
         return createPxth([]);
     }
