@@ -22,7 +22,10 @@ export const longestCommonPxth = (paths: Pxth<unknown>[]): Pxth<unknown> => {
         const segment = segmentedPaths[0][i];
 
         for (let j = 1; j < segmentedPaths.length; j++) {
-            if (segmentedPaths[j][i] !== segment) {
+            if (
+                segmentedPaths[j].length <= i ||
+                segmentedPaths[j][i] !== segment
+            ) {
                 return createPxth(resultingSegments);
             }
         }
