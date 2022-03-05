@@ -16,22 +16,17 @@ export const longestCommonPxth = (paths: Pxth<unknown>[]): Pxth<unknown> => {
 
     const segmentedPaths = paths.map(getPxthSegments);
 
-    const resultingSegments: PxthSegments = [];
+    const somePath = segmentedPaths[0];
 
-    for (let i = 0; i < segmentedPaths[0].length; i++) {
-        const segment = segmentedPaths[0][i];
+    for (let i = 0; i < somePath.length; i++) {
+        const segment = somePath[i];
 
         for (let j = 1; j < segmentedPaths.length; j++) {
-            if (
-                segmentedPaths[j].length <= i ||
-                segmentedPaths[j][i] !== segment
-            ) {
-                return createPxth(resultingSegments);
+            if (segmentedPaths[j][i] !== segment) {
+                return createPxth(somePath.slice(0, i));
             }
         }
-
-        resultingSegments.push(segment);
     }
 
-    return createPxth(resultingSegments);
+    return paths[0];
 };
