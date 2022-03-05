@@ -5,18 +5,7 @@ import { getPxthSegments } from './getPxthSegments';
 import { isInnerPxth } from './isInnerPxth';
 import { Pxth } from './Pxth';
 import { pxthToString } from './pxthToString';
-import { RootPathToken } from './RootPath';
 import { samePxth } from './samePxth';
-
-const getStringifiedPxth = (pxth: Pxth<unknown>): string => {
-    const path = pxthToString(pxth);
-
-    if (path === RootPathToken) {
-        return 'RootPathToken';
-    }
-
-    return path;
-};
 
 /**
  * Returns relative path. If subPath is not child of basePath, it will throw an error.
@@ -43,9 +32,11 @@ export const relativePxth = (
 
     invariant(
         isInnerPxth(basePath, subPath),
-        `"${getStringifiedPxth(
+        `"${pxthToString(
             subPath,
-        )}" is not innner path of "${getStringifiedPxth(basePath)}"`,
+        ).toString()}" is not innner path of "${pxthToString(
+            basePath,
+        ).toString()}"`,
     );
 
     return createPxth(subPathSegments.slice(basePathSegments.length));
