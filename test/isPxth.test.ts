@@ -10,4 +10,11 @@ describe('isPxth', () => {
             }),
         ).toBeFalsy();
     });
+
+    it('should check for primitive', () => {
+        expect(isPxth(0)).toBeFalsy();
+        expect(isPxth('asdf')).toBeFalsy();
+        expect(isPxth(Symbol())).toBeFalsy();
+        expect(isPxth(new Date())).toBeFalsy();
+    });
 });
