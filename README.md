@@ -22,157 +22,57 @@ yarn add pxth
 
 Here are all functions described.
 
-### toPxth
+### Pxth\<T>
 
-Convert string / number / symbol to Pxth.
-
-Usage:
-
+Holds path to field of type `T` in the origin object. 
 ```ts
-import { toPxth, ROOT_PATH } from 'pxth';
+const a: Pxth<string>; // path to string field.
 
-toPxth('a.b.c'); // -> ['a', 'b', 'c']
-
-// any symbol
-toPxth(Symbol()); // -> [Symbol()]
-// ROOT_PATH symbol
-toPxth(ROOT_PATH); // -> []
-
-toPxth(0); // -> [0]
+const b: Pxth<number>; // path to number field.
 ```
 
-### pxthToString
-
-Convert Pxth to string. Throws error if pxth cannot be stringified. [Here is function for check](#canBeStringified)
-
-Usage:
-
+If `T` is object, it is possible to get paths to its fields:
 ```ts
-import { pxthToString } from 'pxth';
+const objectPath: Pxth<{ inner: string }>; // path to parent object.
 
-pxthToString(['lol', 'b', 0, ' .as0 ']); // -> lol.b.0.[" .as0 "]
+const innerPath: Pxth<string> = objectPath.inner; // path to object's field.
 
-pxthToString([Symbol(), 'asdf']); // -> throws error
+const lengthPath: Pxth<number> = innerPath.length; // you can do it also for primitive type fields.
+
+const deepLengthPath: Pxth<number> = objectPath.inner.length; // any amount of levels, just like normal object.
 ```
 
-### stringToPxth
-
-Convert string to pxth. Function [toPxth](#toPxth) calls it, if first argument is string.
-
-```ts
-import { stringToPxth } from 'pxth';
-
-stringToPxth('hello.a.b'); // -> ['hello', 'a', 'b']
-```
-
-### get
+### deepGet
 
 Deeply get value from object.
 
 Usage:
 
 ```ts
-import { get } from 'pxth';
+import { deepGet } from 'pxth';
 
-get({ a: { b: { c: 'Hello world!' } } }, toPxth('a.b.c')); // -> 'Hello world'
+const somePath: Pxth<string> = /* from somewhere */;
 
-// third argument is default value
-get({ a: 'hello' }, toPxth('b.c.d'), 'Default value'); // -> 'Default value'
+// Function is type safe - type of value will be automatically inferred from Pxth. In this case - string.
+const value = deepGet({ a: { b: { c: 'Hello world!' } } }, somePath);
+
+console.log(value); // -> 'Hello world'
+
 ```
 
-### set
+### deepSet
 
 Deeply set value in object. Mutates the object and returns it. If value already exists, overwrites it.
 
 Usage:
 
 ```ts
-import { set } from 'pxth';
+import { deepSet } from 'pxth';
 
-set({ a: { hello: 'asdf' } }, toPxth('a.hello'), 'New value'); // -> { a: { hello: 'New value' } }
+const somePath: Pxth<string> = /* from somewhere */;
 
-set({ a: 'hello' }, toPxth('a.b'), 'New value'); // -> { a: { b: 'New value' } }
-```
-
-### isNestedPath
-
-Determines if one path is child path of another.
-
-Usage:
-
-```ts
-import { isNestedPath } from 'pxth';
-
-isNestedPath(['hello', 'bye', 'yes'], ['hello']); // -> true
-
-isNestedPath(['hello', 'bye', 'yes'], ['hello', 'bye', 'no']); // -> false
-```
-
-### longestCommonPath
-
-Returns longest common path in array
-
-Usage:
-
-```ts
-import { longestCommonPath } from 'pxth';
-
-longestCommonPath([
-    ['hello', 'a'],
-    ['hello', 'b'],
-    ['hello', 'c'],
-]); // -> ['hello']
-
-longestCommonPath([['a'], ['b'], ['c']]); // -> []
-```
-
-### canBeStringified
-
-Function, detecting if `Pxth` instance could be stringified or not.
-
-Usage:
-
-```ts
-import { canBeStringified } from 'pxth';
-
-canBeStringified(['hello', 'world']); // -> true
-
-canBeStringified([Symbol(), 'asdf']); // -> false
-```
-
-### relativePath
-
-Make one path relative to another
-
-Usage:
-
-```ts
-import { relativePath } from 'pxth';
-
-relativePath(['hello', 'world'], ['hello', 'world', 'asdf']); // -> ['asdf']
-relativePath(['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e']); // -> ['d', 'e']
-relativePath(['a'], ['b']); // -> Error
-```
-
-### toObjectKey
-
-Convert pxth to object key
-
-Usage:
-
-```ts
-import { toObjectKey } from 'pxth';
-
-toObjectKey(['a', 'b', 'c']); // -> 'a.b.c'
-toObjectKey([]); // -> ROOT_PATH
-```
-
-### ROOT_PATH
-
-Constant, used in [toObjectKey](#toObjectKey) function, to convert empty Pxth to object key.
-
-```ts
-import { ROOT_PATH } from 'pxth';
+// Type safe - type of third parameter is inferred from Pxth.
+deepSet({ a: { hello: 'asdf' } }, somePath, 'New value'); // -> { a: { hello: 'New value' } }
 ```
 
 ## Contributing

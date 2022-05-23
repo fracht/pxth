@@ -1,25 +1,29 @@
-type OmitMethods<V extends object> = Pick<
+type OmitMethods<V> = Pick<
     V,
     {
         [K in keyof V]: V[K] extends Function ? never : K;
     }[keyof V]
 >;
 
-type RecordPxth<V extends object> = {
+type RecordPxth<V> = {
     [K in keyof OmitMethods<V>]: Pxth<V[K]>;
 };
 
-type ArrayPxth<V extends unknown[]> = {
-    [K in number]: Pxth<V[number]>;
-} &
-    RecordPxth<Omit<V, number>>;
+type PreparePxth<V> = V extends number
+    ? Number
+    : V extends boolean
+    ? Boolean
+    : V extends string
+    ? String
+    : V extends symbol
+    ? Symbol
+    : V;
 
-type ObjectPxth<V extends object> = V extends unknown[]
-    ? ArrayPxth<V>
-    : RecordPxth<V>;
+type SpecificPxth<V> = V extends unknown[]
+    ? RecordPxth<Omit<Array<V>, number>>
+    : {};
 
 declare const BrandKey: unique symbol;
-declare const PrimitiveKey: unique symbol;
 
 export type Pxth<V> = {
     /**
@@ -30,15 +34,5 @@ export type Pxth<V> = {
      * assign value, that cannot be accessed (because BrandKey is not exported)
      */
     [BrandKey]: V;
-} & (V extends object
-    ? ObjectPxth<V>
-    : {
-          /**
-           * Another trick - if we leave this object empty, typescript will
-           * automatically unwrap all non-object types (Pxth<number> becomes
-           * { [BrandKey]: number }). Because of that, we cannot infer type
-           * when using in generic functions. To prevent this behavior, we
-           * add another inaccessible property.
-           */
-          [PrimitiveKey]: true;
-      });
+} & RecordPxth<PreparePxth<V>> &
+    SpecificPxth<V>;
