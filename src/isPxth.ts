@@ -1,5 +1,5 @@
 import { SegmentsToken } from './getPxthSegments';
 import { Pxth } from './Pxth';
 
-export const isPxth = (path: unknown): path is Pxth<unknown> =>
+export const isPxth = <T>(path: unknown): path is Pxth<T> =>
     typeof path === 'object' && path !== null && SegmentsToken in path;
