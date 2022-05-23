@@ -2,7 +2,7 @@ export * from './deepGet';
 export * from './deepSet';
 export { getPxthSegments } from './getPxthSegments';
 export * from './Pxth';
-export * from './PxthSource';
+export * from './PxthSegments';
 export * from './RootPath';
 export * from './createPxth';
 export * from './pxthToString';

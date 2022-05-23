@@ -1,4 +1,4 @@
-import { PxthSegments } from './PxthSource';
+import { PxthSegments } from './PxthSegments';
 import { Pxth } from '.';
 
 export const SegmentsToken = Symbol();

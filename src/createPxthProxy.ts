@@ -1,6 +1,6 @@
 import { SegmentsToken } from './getPxthSegments';
 import { Pxth } from './Pxth';
-import { PxthSegments } from './PxthSource';
+import { PxthSegments } from './PxthSegments';
 
 const handlers: ProxyHandler<
     Record<string, Pxth<unknown>> & {

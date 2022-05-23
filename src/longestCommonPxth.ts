@@ -1,7 +1,6 @@
 import { createPxth } from './createPxth';
 import { getPxthSegments } from './getPxthSegments';
 import { Pxth } from './Pxth';
-import { PxthSegments } from './PxthSource';
 
 /**
  * Finds longest common path.
