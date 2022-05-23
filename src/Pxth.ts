@@ -1,51 +1,44 @@
-declare const NumberPxthBrand: unique symbol;
-declare const StringPxthBrand: unique symbol;
-declare const BooleanPxthBrand: unique symbol;
-declare const BigIntPxthBrand: unique symbol;
-declare const UnknownPxthBrand: unique symbol;
-declare const ObjectPxthBrand: unique symbol;
-declare const ArrayPxthBrand: unique symbol;
+type OmitMethods<V extends object> = Pick<
+    V,
+    {
+        [K in keyof V]: V[K] extends Function ? never : K;
+    }[keyof V]
+>;
 
-declare const ObjectBrandKey: unique symbol;
-declare const BrandKey: unique symbol;
-
-export type PrimitivePxth<V> = {
-    [BrandKey]: V extends string
-        ? typeof StringPxthBrand
-        : V extends number
-        ? typeof NumberPxthBrand
-        : V extends boolean
-        ? typeof BooleanPxthBrand
-        : V extends bigint
-        ? typeof BigIntPxthBrand
-        : typeof UnknownPxthBrand;
+type RecordPxth<V extends object> = {
+    [K in keyof OmitMethods<V>]: Pxth<V[K]>;
 };
 
-type WithoutMethodsKeys<V extends object> = {
-    [K in keyof V]: V[K] extends Function ? never : K;
-}[keyof V];
-
-type RecordOfPxth<V extends object> = {
-    [K in WithoutMethodsKeys<V>]: Pxth<V[K]>;
-};
-
-export type ObjectPxth<V extends object> = RecordOfPxth<V> & {
-    [BrandKey]: typeof ObjectPxthBrand;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ArrayPxth<V extends Array<any>> = {
+type ArrayPxth<V extends unknown[]> = {
     [K in number]: Pxth<V[number]>;
 } &
-    RecordOfPxth<Omit<Array<V[number]>, number>> & {
-        [BrandKey]: typeof ArrayPxthBrand;
-    };
+    RecordPxth<Omit<V, number>>;
+
+type ObjectPxth<V extends object> = V extends unknown[]
+    ? ArrayPxth<V>
+    : RecordPxth<V>;
+
+declare const BrandKey: unique symbol;
+declare const PrimitiveKey: unique symbol;
 
 export type Pxth<V> = {
-    [ObjectBrandKey]: 'brand';
+    /**
+     * Not an actual value - used to trick TypeScript. The trick is that
+     * Pxth does not contain any value V. However, we still need type
+     * safety for this type. For instance, we cannot assign value of type
+     * Pxth<number> to type Pxth<string>. So to achieve this behavior, we
+     * assign value, that cannot be accessed (because BrandKey is not exported)
+     */
+    [BrandKey]: V;
 } & (V extends object
-    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      V extends Array<any>
-        ? ArrayPxth<V>
-        : ObjectPxth<V>
-    : PrimitivePxth<V>);
+    ? ObjectPxth<V>
+    : {
+          /**
+           * Another trick - if we leave this object empty, typescript will
+           * automatically unwrap all non-object types (Pxth<number> becomes
+           * { [BrandKey]: number }). Because of that, we cannot infer type
+           * when using in generic functions. To prevent this behavior, we
+           * add another inaccessible property.
+           */
+          [PrimitiveKey]: true;
+      });
