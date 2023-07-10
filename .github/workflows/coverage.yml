@@ -5,7 +5,7 @@ on:
             - 'docs/**'
             - 'example/**'
         branches:
-            - master
+            - main
 jobs:
     coverage:
         name: Collecting coverage
