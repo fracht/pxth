@@ -19,19 +19,19 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v2
 
-            - name: Use Node ${{ matrix.node }}
-              uses: actions/setup-node@v1
+            - name: Install pnpm 8.7.6
+              uses: pnpm/action-setup@v2.2.4
               with:
-                  node-version: ${{ matrix.node }}
+                  version: 8.7.6
 
-            - name: Install deps and build (with cache)
-              uses: bahmutov/npm-install@v1
+            - name: Install pnpm dependencies (with cache)
+              uses: covbot/pnpm-install-with-cache@v1
 
             - name: Lint
-              run: yarn lint
+              run: pnpm lint
 
             - name: Test
-              run: yarn test --ci --coverage --maxWorkers=2
+              run: pnpm test --ci --coverage --maxWorkers=2
 
             - name: Build
-              run: yarn build
+              run: pnpm build
