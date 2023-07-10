@@ -14,5 +14,3 @@ export * from './joinPxths';
 export * from './relativePxth';
 export * from './longestCommonPxth';
 export * from './isInnerPxth';
-
-// TEST CI
