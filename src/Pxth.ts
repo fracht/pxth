@@ -5,9 +5,15 @@ type OmitMethods<V> = Pick<
     }[keyof V]
 >;
 
-type RecordPxth<V> = {
-    [K in keyof OmitMethods<V>]: Pxth<V[K]>;
-};
+declare const OptionalSymbol: unique symbol;
+
+type RecordPxth<V> = undefined extends V
+    ? RecordPxth<Exclude<V, undefined> & { [OptionalSymbol]: unknown }>
+    : {
+          [K in keyof Required<OmitMethods<V>>]: Pxth<
+              typeof OptionalSymbol extends keyof V ? V[K] | undefined : V[K]
+          >;
+      };
 
 type PreparePxth<V> = V extends number
     ? Number
