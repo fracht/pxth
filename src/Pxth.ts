@@ -7,7 +7,9 @@ type OmitMethods<V> = Pick<
 
 declare const OptionalSymbol: unique symbol;
 
-type RecordPxth<V> = undefined extends V
+type RecordPxth<V> = unknown extends V
+    ? {}
+    : undefined extends V
     ? RecordPxth<Exclude<V, undefined> & { [OptionalSymbol]: unknown }>
     : {
           [K in keyof Required<OmitMethods<V>>]: Pxth<
