@@ -5,6 +5,8 @@ on:
             - 'docs/**'
             - 'example/**'
         branches: [main]
+
+    workflow_dispatch:
 jobs:
     ci:
         name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
