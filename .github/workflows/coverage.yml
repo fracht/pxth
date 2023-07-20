@@ -5,7 +5,7 @@ on:
             - 'docs/**'
             - 'example/**'
         branches:
-            - master
+            - main
 jobs:
     coverage:
         name: Collecting coverage
@@ -13,7 +13,8 @@ jobs:
         env:
             CI_JOB_NUMBER: 1
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v2
+            # FIXME: This CI fails because pull request was created from fork (see https://github.com/ArtiomTr/jest-coverage-report-action#forks-with-no-write-permission)
             - uses: artiomtr/jest-coverage-report-action@v2
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}

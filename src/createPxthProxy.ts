@@ -32,10 +32,10 @@ const handlers: ProxyHandler<
 };
 
 export const createPxthProxy = <Type>(path: PxthSegments): Pxth<Type> => {
-    return (new Proxy(
+    return new Proxy(
         {
             [SegmentsToken]: path,
         },
         handlers,
-    ) as unknown) as Pxth<Type>;
+    ) as unknown as Pxth<Type>;
 };
