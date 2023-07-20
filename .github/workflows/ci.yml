@@ -12,7 +12,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node: ['12.x', '14.x', '17.x']
+                node: ['16.x', '18.x']
                 os: [ubuntu-latest, windows-latest, macOS-latest]
 
         steps:
@@ -23,10 +23,14 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node }}
-                  cache: pnpm
 
-            - name: Install dependencies
-              run: pnpm i
+            - name: Install pnpm 8.6.7
+              uses: pnpm/action-setup@v2.2.4
+              with:
+                  version: 8.6.7
+
+            - name: Install pnpm dependencies (with cache)
+              uses: covbot/pnpm-install-with-cache@v1
 
             - name: Lint
               run: pnpm lint
