@@ -1,4 +1,4 @@
-import { createPxth, deepSet } from '../src';
+import { Pxth, createPxth, deepSet } from '../src';
 
 describe('Optional path type', () => {
     it('should return correct path to the optional object field', () => {
@@ -97,7 +97,19 @@ describe('Optional path type', () => {
 
         deepSet({}, path, { hello: 42 });
 
+        // FIXME: deepSet infers type as Pxth<Data | undefined> by default
         // @ts-expect-error
-        deepSet({}, path, undefined);
+        deepSet<Data>({}, path, undefined);
+    });
+
+    it('should determine assignable types correctly', () => {
+        const func = (path: Pxth<string | undefined>) => {};
+
+        const assignablePath = createPxth<string>([]);
+        func(assignablePath);
+
+        const notAssignablePath = createPxth<string | undefined | null>([]);
+        // @ts-expect-error
+        func(notAssignablePath);
     });
 });
