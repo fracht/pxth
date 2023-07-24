@@ -5,14 +5,9 @@ type OmitMethods<V> = Pick<
     }[keyof V]
 >;
 
-type RecordPxth<
-    V,
-    P = Required<OmitMethods<undefined extends V ? Exclude<V, undefined> : V>>
-> = unknown extends V
-    ? {}
-    : {
-          [K in keyof P]: Pxth<undefined extends V ? P[K] | undefined : P[K]>;
-      };
+type RecordPxth<V, P = OmitMethods<NonNullable<V>>> = {
+    [K in keyof P]-?: Pxth<undefined extends V ? P[K] | undefined : P[K]>;
+};
 
 type PreparePxth<V> = V extends number
     ? Number
