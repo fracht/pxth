@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { deepGet, createPxth } from '../src';
 
 describe('deep get', () => {

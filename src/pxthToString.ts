@@ -1,6 +1,6 @@
 import { getPxthSegments } from './getPxthSegments';
-import { Pxth } from './Pxth';
-import { RootPath, RootPathToken } from '.';
+import type { Pxth } from './Pxth';
+import { type RootPath, RootPathToken } from './RootPath';
 
 export const pxthToString = <V>(pxth: Pxth<V>): string | RootPath => {
     const segments = getPxthSegments(pxth);

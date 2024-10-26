@@ -1,6 +1,6 @@
 import { SegmentsToken } from './getPxthSegments';
-import { Pxth } from './Pxth';
-import { PxthSegments } from './PxthSegments';
+import type { Pxth } from './Pxth';
+import type { PxthSegments } from './PxthSegments';
 
 const handlers: ProxyHandler<
     Record<string, Pxth<unknown>> & {
@@ -32,10 +32,10 @@ const handlers: ProxyHandler<
 };
 
 export const createPxthProxy = <Type>(path: PxthSegments): Pxth<Type> => {
-    return (new Proxy(
+    return new Proxy(
         {
             [SegmentsToken]: path,
         },
         handlers,
-    ) as unknown) as Pxth<Type>;
+    ) as unknown as Pxth<Type>;
 };

@@ -1,7 +1,7 @@
 import set from 'lodash/set';
 
 import { getPxthSegments } from './getPxthSegments';
-import { Pxth } from './Pxth';
+import type { Pxth } from './Pxth';
 
 export const deepSet = <T>(
     object: object,

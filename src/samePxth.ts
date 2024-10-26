@@ -1,5 +1,5 @@
 import { getPxthSegments } from './getPxthSegments';
-import { Pxth } from './Pxth';
+import type { Pxth } from './Pxth';
 
 export const samePxth = (
     pxth1: Pxth<unknown>,

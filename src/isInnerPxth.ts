@@ -1,5 +1,5 @@
 import { getPxthSegments } from './getPxthSegments';
-import { Pxth } from './Pxth';
+import type { Pxth } from './Pxth';
 import { samePxth } from './samePxth';
 
 /**

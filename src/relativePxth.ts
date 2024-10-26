@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 import { createPxth } from './createPxth';
 import { getPxthSegments } from './getPxthSegments';
 import { isInnerPxth } from './isInnerPxth';
-import { Pxth } from './Pxth';
+import type { Pxth } from './Pxth';
 import { pxthToString } from './pxthToString';
 import { samePxth } from './samePxth';
 

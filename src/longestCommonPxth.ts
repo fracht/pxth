@@ -1,6 +1,6 @@
 import { createPxth } from './createPxth';
 import { getPxthSegments } from './getPxthSegments';
-import { Pxth } from './Pxth';
+import type { Pxth } from './Pxth';
 
 /**
  * Finds longest common path.
@@ -15,13 +15,13 @@ export const longestCommonPxth = (paths: Pxth<unknown>[]): Pxth<unknown> => {
 
     const segmentedPaths = paths.map(getPxthSegments);
 
-    const somePath = segmentedPaths[0];
+    const somePath = segmentedPaths[0]!;
 
     for (let i = 0; i < somePath.length; i++) {
         const segment = somePath[i];
 
         for (let j = 1; j < segmentedPaths.length; j++) {
-            if (segmentedPaths[j][i] !== segment) {
+            if (segmentedPaths[j]![i] !== segment) {
                 return createPxth(somePath.slice(0, i));
             }
         }

@@ -1,5 +1,6 @@
 import { shuffle } from 'lodash';
 import { createPxth, getPxthSegments, longestCommonPxth } from '../src';
+import { describe, it, expect } from 'vitest';
 
 describe('longestCommonPxth', () => {
     it('hit cases', () => {

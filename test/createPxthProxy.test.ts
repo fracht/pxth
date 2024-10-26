@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { createPxthProxy } from '../src/createPxthProxy';
 import { SegmentsToken } from '../src/getPxthSegments';
 

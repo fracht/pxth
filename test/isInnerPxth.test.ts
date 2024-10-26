@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { createPxth, isInnerPxth } from '../src';
 
 describe('isInnerPxth', () => {
