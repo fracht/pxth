@@ -4,7 +4,7 @@ on:
         paths-ignore:
             - 'docs/**'
             - 'example/**'
-        branches: [master]
+        branches: [main]
 jobs:
     ci:
         name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
@@ -12,26 +12,30 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                node: ['12.x', '14.x', '17.x']
+                node: ['18.x', '20.x', '22.x']
                 os: [ubuntu-latest, windows-latest, macOS-latest]
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Use Node ${{ matrix.node }}
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node }}
 
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9.6.0
+
             - name: Install deps and build (with cache)
-              uses: bahmutov/npm-install@v1
+              uses: covbot/pnpm-install-with-cache@v1
 
             - name: Lint
-              run: yarn lint
+              run: pnpm lint
 
             - name: Test
-              run: yarn test --ci --coverage --maxWorkers=2
+              run: pnpm test
 
             - name: Build
-              run: yarn build
+              run: pnpm build

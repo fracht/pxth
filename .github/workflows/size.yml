@@ -4,14 +4,22 @@ on:
         paths-ignore:
             - 'docs/**'
             - 'example/**'
-        branches: [master]
+        branches: [main]
 jobs:
     size:
         runs-on: ubuntu-latest
         env:
             CI_JOB_NUMBER: 1
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
+            - name: Use Node ${{ matrix.node }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9.6.0
             - uses: andresz1/size-limit-action@v1
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
