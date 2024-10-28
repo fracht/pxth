@@ -1,5 +1,8 @@
 # pxth
 
+> [!NOTE]
+> This repository was moved into [reactive-forms monorepo](https://github.com/fracht/reactive-forms)
+
 > Tiny utility library for object property path handling
 
 [![npm version](https://img.shields.io/npm/v/pxth)](https://www.npmjs.com/package/pxth)
